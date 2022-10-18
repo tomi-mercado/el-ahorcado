@@ -47,12 +47,10 @@ const Home: NextPage = () => {
             justifyContent="center"
             minH={9}
           >
-            {!gameState.isFinished && (
-              <Assertions
-                expectedWord={expectedWord}
-                typedLetters={gameState.typedLetters}
-              />
-            )}
+            <Assertions
+              expectedWord={expectedWord}
+              typedLetters={gameState.typedLetters}
+            />
           </LoadingWrapper>
 
           <LoadingWrapper loading={loading} minH={208} justifyContent="center">
