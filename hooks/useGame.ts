@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { Dispatch, useEffect, useReducer } from "react";
 
 interface GameState {
   expectedWord: string | undefined | null;
@@ -48,17 +48,18 @@ const reducer: ReducerGameState = (state, action) => {
       }
       const letter = action.payload;
 
-      const isCorrect = state.expectedWord.includes(letter);
-
       const isPreviouslyPressed = state.typedLetters.includes(letter);
+
+      const isCorrect = state.expectedWord.includes(letter);
 
       return reducer(
         {
           ...state,
-          typedLetters: isPreviouslyPressed
-            ? state.typedLetters
-            : [...state.typedLetters, letter],
-          errorsAmount: isCorrect ? state.errorsAmount : state.errorsAmount + 1,
+          typedLetters: [...state.typedLetters, letter],
+          errorsAmount:
+            isCorrect || isPreviouslyPressed
+              ? state.errorsAmount
+              : state.errorsAmount + 1,
         },
         { type: "UPDATE_IS_FINISHED" }
       );
@@ -69,6 +70,17 @@ const reducer: ReducerGameState = (state, action) => {
   }
 };
 
+const useSetExpectedWordOnWordChange = (
+  word: string | null,
+  dispatch: Dispatch<Action>
+) => {
+  useEffect(() => {
+    if (word) {
+      dispatch({ type: "SET_EXPECTED_WORD", payload: word });
+    }
+  }, [word, dispatch]);
+};
+
 const useGame = (word: string | null) => {
   const [gameState, dispatch] = useReducer<ReducerGameState, GameState>(
     reducer,
@@ -76,11 +88,7 @@ const useGame = (word: string | null) => {
     () => initialState
   );
 
-  useEffect(() => {
-    if (word) {
-      dispatch({ type: "SET_EXPECTED_WORD", payload: word });
-    }
-  }, [word]);
+  useSetExpectedWordOnWordChange(word, dispatch);
 
   return {
     gameState,
