@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 
 interface GameState {
   expectedWord: string | undefined | null;
@@ -10,7 +10,8 @@ interface GameState {
 type Action =
   | { type: "TYPE_LETTER"; payload: string }
   | { type: "RESET" }
-  | { type: "UPDATE_IS_FINISHED" };
+  | { type: "UPDATE_IS_FINISHED" }
+  | { type: "SET_EXPECTED_WORD"; payload: string };
 
 type ReducerGameState = (state: GameState, action: Action) => GameState;
 
@@ -25,6 +26,12 @@ const initialState: GameState = {
 
 const reducer: ReducerGameState = (state, action) => {
   switch (action.type) {
+    case "SET_EXPECTED_WORD": {
+      return {
+        ...state,
+        expectedWord: action.payload,
+      };
+    }
     case "UPDATE_IS_FINISHED":
       const userLost = state.errorsAmount === errorsMaxAmount;
       const userWin = state.expectedWord
@@ -36,12 +43,13 @@ const reducer: ReducerGameState = (state, action) => {
         isFinished: userLost ? "lost" : userWin ? "win" : false,
       };
     case "TYPE_LETTER":
-      if (state.isFinished) {
+      if (state.isFinished || !state.expectedWord) {
         return state;
       }
       const letter = action.payload;
 
-      const isCorrect = state.expectedWord?.includes(letter);
+      const isCorrect = state.expectedWord.includes(letter);
+
       const isPreviouslyPressed = state.typedLetters.includes(letter);
 
       return reducer(
@@ -62,13 +70,17 @@ const reducer: ReducerGameState = (state, action) => {
 };
 
 const useGame = (word: string | null) => {
-  const initialStateWithWord = { ...initialState, expectedWord: word };
-
   const [gameState, dispatch] = useReducer<ReducerGameState, GameState>(
     reducer,
-    initialStateWithWord,
-    () => initialStateWithWord
+    initialState,
+    () => initialState
   );
+
+  useEffect(() => {
+    if (word) {
+      dispatch({ type: "SET_EXPECTED_WORD", payload: word });
+    }
+  }, [word]);
 
   return {
     gameState,
