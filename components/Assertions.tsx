@@ -1,14 +1,16 @@
 import { Stack, Text } from "@chakra-ui/react";
 
 interface AssertionsProps {
-  expectedWordArr: string[];
+  expectedWord: string | null;
   typedLetters: string[];
 }
 
 const Assertions: React.FC<AssertionsProps> = ({
-  expectedWordArr,
+  expectedWord,
   typedLetters,
 }) => {
+  const expectedWordArr = expectedWord?.split("") || [];
+
   return (
     <Stack direction="row">
       {expectedWordArr.map((letter, i) => {
