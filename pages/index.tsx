@@ -13,6 +13,7 @@ import Navbar from "../components/Navbar";
 import { useGetWord } from "../api";
 
 import useGame from "../hooks/useGame";
+import Head from "next/head";
 
 const Home: NextPage = () => {
   const {
@@ -36,6 +37,11 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>El Ahorcado</title>
+        <meta name="description" content="Juego del ahorcado" />
+      </Head>
+
       <Navbar />
 
       <Container maxW="container.lg">
