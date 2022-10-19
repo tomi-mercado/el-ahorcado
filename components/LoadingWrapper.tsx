@@ -1,4 +1,10 @@
-import { Stack, StackProps } from "@chakra-ui/react";
+import {
+  Stack,
+  StackProps,
+  useColorModeValue,
+  useToken,
+} from "@chakra-ui/react";
+
 import { DotSpinner } from "@uiball/loaders";
 
 interface LoadingWrapperProps extends StackProps {
@@ -8,7 +14,14 @@ interface LoadingWrapperProps extends StackProps {
 }
 
 export const Loading = () => {
-  return <DotSpinner size={130} speed={0.9} color="black" />;
+  const [textDefault, textDefaultDark] = useToken("colors", [
+    "text.default",
+    "text.defaultDark",
+  ]);
+
+  const color = useColorModeValue(textDefault, textDefaultDark);
+
+  return <DotSpinner size={130} speed={0.9} color={color} />;
 };
 
 const LoadingWrapper: React.FC<LoadingWrapperProps> = ({
