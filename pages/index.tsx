@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 
-import { Container, Heading, Stack, useDisclosure } from "@chakra-ui/react";
+import { Container, Stack, useDisclosure } from "@chakra-ui/react";
 
 import Assertions from "../components/Assertions";
 import EndGameMessage from "../components/EndGameMessage";
@@ -8,6 +8,7 @@ import Illustration from "../components/Illustration";
 import Keyboard from "../components/Keyboard";
 import Dialog from "../components/Dialog";
 import LoadingWrapper from "../components/LoadingWrapper";
+import Navbar from "../components/Navbar";
 
 import { useGetWord } from "../api";
 
@@ -35,10 +36,10 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Container maxW="container.lg" py={6} h="100vh">
-        <Stack alignItems="center" spacing={4} justifyContent="center" h="full">
-          <Heading size="lg">El ahorcado</Heading>
+      <Navbar />
 
+      <Container maxW="container.lg">
+        <Stack alignItems="center" spacing={4} h="full">
           <Illustration errorsAmount={gameState.errorsAmount} />
 
           <LoadingWrapper
