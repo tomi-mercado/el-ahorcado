@@ -1,4 +1,4 @@
-import { Button, Grid, Kbd, Stack } from "@chakra-ui/react";
+import { Button, Kbd, Stack } from "@chakra-ui/react";
 
 import ResetButton from "./ResetButton";
 
@@ -39,7 +39,14 @@ const Keyboard: React.FC<KeyboardProps> = ({
     <Stack spacing={4}>
       <ResetButton onClick={onReset} />
 
-      <Grid gridTemplateColumns="repeat(9, 1fr)" gap={4} w="full">
+      <Stack
+        direction="row"
+        flexWrap="wrap"
+        gap={4}
+        justifyContent="center"
+        w="full"
+        maxW={640}
+      >
         {selectedKeyboard.map((letter, i) => {
           const isPressed = typedLetters.includes(letter);
           const isCorrect = isPressed && expectedWord.includes(letter);
@@ -63,7 +70,7 @@ const Keyboard: React.FC<KeyboardProps> = ({
             </Kbd>
           );
         })}
-      </Grid>
+      </Stack>
     </Stack>
   );
 };
