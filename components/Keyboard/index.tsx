@@ -1,7 +1,10 @@
 import { Button, Grid, Kbd, Stack } from "@chakra-ui/react";
-import { useEffect } from "react";
 
-interface KeyboardProps {
+import ResetButton from "./ResetButton";
+
+import useKeyboardGame from "../../hooks/useKeyboardGame";
+
+export interface KeyboardProps {
   type?: "qwerty" | "alphabet";
   typedLetters: string[];
   expectedWord: string;
@@ -19,42 +22,23 @@ const Keyboard: React.FC<KeyboardProps> = ({
   onClick,
   onReset,
 }) => {
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      const letter = event.key;
-
-      if (alphabet.includes(letter)) {
-        onClick(letter);
-      } else if (event.key === "Escape" || event.key === "Esc") {
-        onReset?.();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [expectedWord, typedLetters, onClick, onReset]);
-
   const selectedKeyboard = {
     qwerty: qwertyAlphabet,
     alphabet,
   }[type];
 
+  useKeyboardGame({
+    expectedWord,
+    typedLetters,
+    selectedKeyboard,
+    onClick,
+    onReset,
+  });
+
   return (
     <Stack spacing={4}>
-      {onReset && (
-        <Kbd
-          bgColor="red.100"
-          w="fit-content"
-          p={4}
-          as={Button}
-          onClick={onReset}
-        >
-          Reiniciar (X)
-        </Kbd>
-      )}
+      <ResetButton onClick={onReset} />
+
       <Grid gridTemplateColumns="repeat(9, 1fr)" gap={4} w="full">
         {selectedKeyboard.map((letter, i) => {
           const isPressed = typedLetters.includes(letter);
