@@ -1,4 +1,4 @@
-import { Text } from "@chakra-ui/react";
+import { Text, chakra } from "@chakra-ui/react";
 
 interface EndGameMessageProps {
   win: boolean;
@@ -20,10 +20,25 @@ const EndGameMessage: React.FC<EndGameMessageProps> = ({
   }
 
   return (
-    <Text fontSize="3xl" color={win ? "green.400" : "red.400"}>
-      {win
-        ? "Has acertado!"
-        : `Perdiste :( La palabra era: ${expectedWord.toUpperCase()}`}
+    <Text
+      fontSize="5xl"
+      color={win ? "green.400" : "red.400"}
+      fontWeight="bold"
+      textAlign="center"
+    >
+      {win ? (
+        <>
+          ¡Has acertado! <br />
+          👏👏👏
+        </>
+      ) : (
+        <>
+          Perdiste 🥺 <br />
+          <chakra.span fontSize="3xl">
+            La palabra era: {expectedWord.toUpperCase()}
+          </chakra.span>
+        </>
+      )}
     </Text>
   );
 };
