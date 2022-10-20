@@ -78,6 +78,14 @@ const setStroke = (ctx: CanvasRenderingContext2D, color: string) => {
   ctx.lineWidth = 8;
 };
 
+const resetDraw = (
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  height: number
+) => {
+  ctx.clearRect(0, 0, width, height);
+};
+
 const drawActions = [
   drawHead,
   drawBody,
@@ -116,7 +124,7 @@ const Illustration: React.FC<IllustrationProps> = ({ errorsAmount }) => {
 
     if (ctx) {
       if (errorsAmount === 0) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        resetDraw(ctx, canvas.width, canvas.height);
       }
 
       draw(ctx, errorsAmount, color);
