@@ -21,7 +21,7 @@ const EndGameMessage: React.FC<EndGameMessageProps> = ({
 
   return (
     <Text
-      fontSize="5xl"
+      fontSize="3xl"
       color={win ? "green.400" : "red.400"}
       fontWeight="bold"
       textAlign="center"
@@ -34,7 +34,7 @@ const EndGameMessage: React.FC<EndGameMessageProps> = ({
       ) : (
         <>
           Perdiste 🥺 <br />
-          <chakra.span fontSize="3xl">
+          <chakra.span fontSize="xl">
             La palabra era: {expectedWord.toUpperCase()}
           </chakra.span>
         </>

@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 
 import Head from "next/head";
 
-import { Container, Stack, useDisclosure } from "@chakra-ui/react";
+import { Box, Container, Stack, useDisclosure } from "@chakra-ui/react";
 
 import Assertions from "../components/Assertions";
 import EndGameMessage from "../components/EndGameMessage";
@@ -50,28 +50,32 @@ const Home: NextPage = () => {
       <Navbar />
 
       <Container maxW="container.lg">
-        <Stack alignItems="center" spacing={4} h="full">
-          <Illustration errorsAmount={gameState.errorsAmount} />
+        <Stack alignItems="center" spacing={4} h="full" pb={8}>
+          <Stack spacing={16} alignItems="center">
+            <Illustration errorsAmount={gameState.errorsAmount} />
 
-          <LoadingWrapper
-            loading={loading}
-            noSpinner
-            justifyContent="center"
-            minH={9}
-          >
-            <Assertions
-              expectedWord={expectedWord}
-              typedLetters={gameState.typedLetters}
-            />
-          </LoadingWrapper>
+            <LoadingWrapper
+              loading={loading}
+              noSpinner
+              justifyContent="center"
+              minH={9}
+            >
+              <Assertions
+                expectedWord={expectedWord}
+                typedLetters={gameState.typedLetters}
+              />
+            </LoadingWrapper>
+          </Stack>
 
           <LoadingWrapper loading={loading} minH={208} justifyContent="center">
             <Stack spacing={2} w="full" alignItems="center">
-              <EndGameMessage
-                lost={userLost}
-                win={userWin}
-                expectedWord={expectedWord || ""}
-              />
+              <Box minH={90}>
+                <EndGameMessage
+                  lost={userLost}
+                  win={userWin}
+                  expectedWord={expectedWord || ""}
+                />
+              </Box>
 
               <Keyboard
                 onClick={handleKeyboard}
