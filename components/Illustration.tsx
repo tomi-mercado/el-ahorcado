@@ -6,22 +6,27 @@ interface IllustrationProps {
 }
 
 const drawBase = (ctx: CanvasRenderingContext2D) => {
+  ctx.beginPath();
   ctx.moveTo(20, 220);
   ctx.lineTo(75, 220);
   ctx.stroke();
 
+  ctx.beginPath();
   ctx.moveTo(45, 220);
   ctx.lineTo(45, 20);
   ctx.stroke();
 
+  ctx.beginPath();
   ctx.moveTo(45, 20);
   ctx.lineTo(200, 20);
   ctx.stroke();
 
+  ctx.beginPath();
   ctx.moveTo(200, 20);
   ctx.lineTo(200, 50);
   ctx.stroke();
 
+  ctx.beginPath();
   ctx.moveTo(45, 70);
   ctx.lineTo(90, 20);
   ctx.stroke();
@@ -34,30 +39,35 @@ const drawHead = (ctx: CanvasRenderingContext2D) => {
 };
 
 const drawBody = (ctx: CanvasRenderingContext2D) => {
+  ctx.beginPath();
   ctx.moveTo(200, 90);
   ctx.lineTo(200, 150);
   ctx.stroke();
 };
 
 const drawLeftArm = (ctx: CanvasRenderingContext2D) => {
+  ctx.beginPath();
   ctx.moveTo(200, 100);
   ctx.lineTo(170, 120);
   ctx.stroke();
 };
 
 const drawRightArm = (ctx: CanvasRenderingContext2D) => {
+  ctx.beginPath();
   ctx.moveTo(200, 100);
   ctx.lineTo(230, 120);
   ctx.stroke();
 };
 
 const drawLeftLeg = (ctx: CanvasRenderingContext2D) => {
+  ctx.beginPath();
   ctx.moveTo(200, 150);
   ctx.lineTo(170, 170);
   ctx.stroke();
 };
 
 const drawRightLeg = (ctx: CanvasRenderingContext2D) => {
+  ctx.beginPath();
   ctx.moveTo(200, 150);
   ctx.lineTo(230, 170);
   ctx.stroke();
@@ -105,6 +115,10 @@ const Illustration: React.FC<IllustrationProps> = ({ errorsAmount }) => {
     const ctx = canvas?.getContext("2d");
 
     if (ctx) {
+      if (errorsAmount === 0) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+
       draw(ctx, errorsAmount, color);
     }
   }, [errorsAmount, color]);
