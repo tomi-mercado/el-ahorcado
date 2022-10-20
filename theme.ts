@@ -1,5 +1,27 @@
-import { extendTheme, theme as defaultTheme } from "@chakra-ui/react";
+import {
+  extendTheme,
+  theme as defaultTheme,
+  defineStyleConfig,
+} from "@chakra-ui/react";
 import { mode, StyleFunctionProps } from "@chakra-ui/theme-tools";
+
+const Button = defineStyleConfig({
+  variants: {
+    destructive: (props: StyleFunctionProps) => ({
+      bgColor: mode("red.100", "red.300")(props),
+      _hover: {
+        bgColor: mode("red.200", "red.400")(props),
+      },
+    }),
+  },
+});
+
+const Kbd = defineStyleConfig({
+  variants: {
+    destructive: (props: StyleFunctionProps) =>
+      Button.variants?.destructive(props) || {},
+  },
+});
 
 const theme = extendTheme({
   config: {
@@ -25,6 +47,10 @@ const theme = extendTheme({
         minH: "100vh",
       },
     }),
+  },
+  components: {
+    Button,
+    Kbd,
   },
 });
 

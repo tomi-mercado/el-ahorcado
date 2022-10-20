@@ -12,7 +12,13 @@ const ResetButton: React.FC<ResetButtonProps> = ({ onClick }) => {
   }
 
   return (
-    <Kbd bgColor={bgColor} w="fit-content" p={4} as={Button} onClick={onClick}>
+    <Kbd
+      w="fit-content"
+      as={Button}
+      p={4}
+      variant="destructive"
+      onClick={onClick}
+    >
       Reiniciar (X)
     </Kbd>
   );

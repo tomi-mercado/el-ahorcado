@@ -100,7 +100,7 @@ const Home: NextPage = () => {
             isLeastDestructive: true,
             variant: "outline",
           },
-          { label: "Reiniciar", onClick: handleReset, bgColor: "red.100" },
+          { label: "Reiniciar", onClick: handleReset, variant: "destructive" },
         ]}
       />
 
