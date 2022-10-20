@@ -1,5 +1,7 @@
 import type { NextPage } from "next";
 
+import Head from "next/head";
+
 import { Container, Stack, useDisclosure } from "@chakra-ui/react";
 
 import Assertions from "../components/Assertions";
@@ -13,7 +15,7 @@ import Navbar from "../components/Navbar";
 import { useGetWord } from "../api";
 
 import useGame from "../hooks/useGame";
-import Head from "next/head";
+import Confetti from "../components/Confetti";
 
 const Home: NextPage = () => {
   const {
@@ -24,6 +26,9 @@ const Home: NextPage = () => {
 
   const { word: expectedWord, refresh, loading } = useGetWord();
   const { gameState, dispatch } = useGame(expectedWord);
+
+  const userWin = gameState.isFinished === "win";
+  const userLost = gameState.isFinished === "lost";
 
   const handleKeyboard = (letter: string) => {
     dispatch({ type: "TYPE_LETTER", payload: letter });
@@ -63,8 +68,8 @@ const Home: NextPage = () => {
           <LoadingWrapper loading={loading} minH={208} justifyContent="center">
             <Stack spacing={2} w="full" alignItems="center">
               <EndGameMessage
-                lost={gameState.isFinished === "lost"}
-                win={gameState.isFinished === "win"}
+                lost={userLost}
+                win={userWin}
                 expectedWord={expectedWord || ""}
               />
 
@@ -94,6 +99,8 @@ const Home: NextPage = () => {
           { label: "Reiniciar", onClick: handleReset, bgColor: "red.100" },
         ]}
       />
+
+      <Confetti win={userWin} />
     </>
   );
 };
