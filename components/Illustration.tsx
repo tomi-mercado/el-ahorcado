@@ -1,3 +1,4 @@
+import { useColorModeValue, useToken } from "@chakra-ui/react";
 import { useEffect } from "react";
 
 interface IllustrationProps {
@@ -62,8 +63,8 @@ const drawRightLeg = (ctx: CanvasRenderingContext2D) => {
   ctx.stroke();
 };
 
-const setStroke = (ctx: CanvasRenderingContext2D) => {
-  ctx.strokeStyle = "white";
+const setStroke = (ctx: CanvasRenderingContext2D, color: string) => {
+  ctx.strokeStyle = color;
   ctx.lineWidth = 8;
 };
 
@@ -76,8 +77,12 @@ const drawActions = [
   drawRightLeg,
 ];
 
-const draw = (ctx: CanvasRenderingContext2D, errorsAmount: number) => {
-  setStroke(ctx);
+const draw = (
+  ctx: CanvasRenderingContext2D,
+  errorsAmount: number,
+  color: string
+) => {
+  setStroke(ctx, color);
 
   drawBase(ctx);
 
@@ -86,6 +91,13 @@ const draw = (ctx: CanvasRenderingContext2D, errorsAmount: number) => {
 };
 
 const Illustration: React.FC<IllustrationProps> = ({ errorsAmount }) => {
+  const [textDefault, textDefaultDark] = useToken("colors", [
+    "text.default",
+    "text.defaultDark",
+  ]);
+
+  const color = useColorModeValue(textDefault, textDefaultDark);
+
   useEffect(() => {
     const canvas = document.getElementById(
       "hangman-illustration"
@@ -93,9 +105,9 @@ const Illustration: React.FC<IllustrationProps> = ({ errorsAmount }) => {
     const ctx = canvas?.getContext("2d");
 
     if (ctx) {
-      draw(ctx, errorsAmount);
+      draw(ctx, errorsAmount, color);
     }
-  }, [errorsAmount]);
+  }, [errorsAmount, color]);
 
   return <canvas id="hangman-illustration" width={230} height={230}></canvas>;
 };
