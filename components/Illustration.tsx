@@ -5,7 +5,9 @@ interface IllustrationProps {
   errorsAmount: number;
 }
 
-const drawBase = (ctx: CanvasRenderingContext2D) => {
+type DrawFn = (ctx: CanvasRenderingContext2D) => void;
+
+const drawBase: DrawFn = (ctx: CanvasRenderingContext2D) => {
   ctx.beginPath();
   ctx.moveTo(20, 220);
   ctx.lineTo(75, 220);
@@ -32,41 +34,41 @@ const drawBase = (ctx: CanvasRenderingContext2D) => {
   ctx.stroke();
 };
 
-const drawHead = (ctx: CanvasRenderingContext2D) => {
+const drawHead: DrawFn = (ctx: CanvasRenderingContext2D) => {
   ctx.beginPath();
   ctx.arc(200, 70, 20, 0, 2 * Math.PI);
   ctx.stroke();
 };
 
-const drawBody = (ctx: CanvasRenderingContext2D) => {
+const drawBody: DrawFn = (ctx: CanvasRenderingContext2D) => {
   ctx.beginPath();
   ctx.moveTo(200, 90);
   ctx.lineTo(200, 150);
   ctx.stroke();
 };
 
-const drawLeftArm = (ctx: CanvasRenderingContext2D) => {
+const drawLeftArm: DrawFn = (ctx: CanvasRenderingContext2D) => {
   ctx.beginPath();
   ctx.moveTo(200, 100);
   ctx.lineTo(170, 120);
   ctx.stroke();
 };
 
-const drawRightArm = (ctx: CanvasRenderingContext2D) => {
+const drawRightArm: DrawFn = (ctx: CanvasRenderingContext2D) => {
   ctx.beginPath();
   ctx.moveTo(200, 100);
   ctx.lineTo(230, 120);
   ctx.stroke();
 };
 
-const drawLeftLeg = (ctx: CanvasRenderingContext2D) => {
+const drawLeftLeg: DrawFn = (ctx: CanvasRenderingContext2D) => {
   ctx.beginPath();
   ctx.moveTo(200, 150);
   ctx.lineTo(170, 170);
   ctx.stroke();
 };
 
-const drawRightLeg = (ctx: CanvasRenderingContext2D) => {
+const drawRightLeg: DrawFn = (ctx: CanvasRenderingContext2D) => {
   ctx.beginPath();
   ctx.moveTo(200, 150);
   ctx.lineTo(230, 170);
