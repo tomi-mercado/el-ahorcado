@@ -1,12 +1,10 @@
-import { Button, Kbd, useColorModeValue } from "@chakra-ui/react";
+import { Button, Kbd, chakra } from "@chakra-ui/react";
 
 interface ResetButtonProps {
   onClick?: () => void;
 }
 
 const ResetButton: React.FC<ResetButtonProps> = ({ onClick }) => {
-  const bgColor = useColorModeValue("red.100", "red.300");
-
   if (!onClick) {
     return null;
   }
@@ -15,11 +13,16 @@ const ResetButton: React.FC<ResetButtonProps> = ({ onClick }) => {
     <Kbd
       w="fit-content"
       as={Button}
-      p={4}
+      p={{ base: 1, md: 4 }}
       variant="destructive"
       onClick={onClick}
+      minW={{ base: 6, md: 10 }}
+      h={{ base: 8, md: 10 }}
     >
-      Reiniciar (X)
+      [X]{" "}
+      <chakra.span display={{ base: "none", md: "initial" }}>
+        Reiniciar
+      </chakra.span>
     </Kbd>
   );
 };

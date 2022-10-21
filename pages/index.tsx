@@ -51,8 +51,14 @@ const Home: NextPage = () => {
 
       <Container maxW="container.lg">
         <Stack alignItems="center" spacing={4} h="full" pb={8}>
-          <Stack spacing={16} alignItems="center">
-            <Illustration errorsAmount={gameState.errorsAmount} />
+          <Stack spacing={{ base: 8, md: 16 }} alignItems="center">
+            <Box
+              sx={{
+                zoom: { base: 0.7, md: 1 },
+              }}
+            >
+              <Illustration errorsAmount={gameState.errorsAmount} />
+            </Box>
 
             <LoadingWrapper
               loading={loading}
@@ -69,6 +75,13 @@ const Home: NextPage = () => {
 
           <LoadingWrapper loading={loading} minH={208} justifyContent="center">
             <Stack spacing={2} w="full" alignItems="center">
+              <Keyboard
+                onClick={handleKeyboard}
+                expectedWord={expectedWord || ""}
+                typedLetters={gameState.typedLetters}
+                onReset={toggleResetAlertOpen}
+              />
+
               <Box minH={90}>
                 <EndGameMessage
                   lost={userLost}
@@ -76,13 +89,6 @@ const Home: NextPage = () => {
                   expectedWord={expectedWord || ""}
                 />
               </Box>
-
-              <Keyboard
-                onClick={handleKeyboard}
-                expectedWord={expectedWord || ""}
-                typedLetters={gameState.typedLetters}
-                onReset={toggleResetAlertOpen}
-              />
             </Stack>
           </LoadingWrapper>
         </Stack>
